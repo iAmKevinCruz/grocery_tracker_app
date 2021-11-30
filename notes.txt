@@ -1,0 +1,4 @@
+Where I left off
+    - I need to create a table component
+    - Create a globalState to hold the grocery list as an array
+    - Capture the inputs and upon submit, send the object to the globalState

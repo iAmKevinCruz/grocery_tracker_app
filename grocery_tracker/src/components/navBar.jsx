@@ -9,7 +9,7 @@ const NavBar = () => {
     <nav className="navbar">
       <div className="nav-wrapper">
         <a href="#" className="center brand-logo">
-          Tracker
+          PocketPantry
         </a>
         <ul id="nav-mobile" className="left">
           <li>
@@ -25,7 +25,7 @@ const NavBar = () => {
             </Link>
           </li>
           <li>
-            <Link className="waves-effect" to="/">
+            <Link className="waves-effect" to="/list">
               <FontAwesomeIcon icon={faListUl} />
             </Link>
           </li>

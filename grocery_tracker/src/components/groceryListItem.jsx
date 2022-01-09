@@ -4,10 +4,13 @@ import { useState } from "react";
 const GroceryListItem = (props) => {
   const selectChange = (event) => {
     let selected = event.target.checked;
+    let id = props.data._id;
+    let status = {
+      _id: id,
+      selected: selected,
+    };
 
-    if (selected) {
-      props.send(props.data._id);
-    }
+    props.send(status);
   };
 
   const firstLetterCap = (word) => {

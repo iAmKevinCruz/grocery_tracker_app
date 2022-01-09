@@ -6,37 +6,6 @@ import GroceryListItem from "./groceryListItem";
 const GroceryList = () => {
   let [selectedItemsList, setSelectedItemsList] = useState([]);
   const inventory = useContext(inventoryContext).inventory;
-
-  const selectedItems = (prod) => {
-    let list = [...selectedItemsList];
-    let inv = [...test];
-    console.log("checked item: " + prod);
-
-    if (list.length < 1) {
-      list.push(prod);
-      setSelectedItemsList(list);
-      console.log(list);
-    } else {
-      for (let i = 0; i < list.length; i++) {
-        if (prod == list[i]) {
-          return;
-        } else {
-          list.push(prod);
-          setSelectedItemsList(list);
-          console.log(list);
-        }
-      }
-    }
-  };
-
-  const btn = () => {
-    let list = [...selectedItemsList];
-    let num = 2;
-    let tool = list.find(2);
-    // console.log(list.find(num > 1));
-    console.log(tool);
-  };
-
   let test = [
     { _id: 1, name: "apples", amount: 2, unit: "oz", category: "fruit" },
     {
@@ -47,6 +16,45 @@ const GroceryList = () => {
       category: "vegetable",
     },
   ];
+
+  const selectedItems = (prod) => {
+    let list = [...selectedItemsList];
+    let inv = [...test];
+    let inList = false;
+    let selected = false;
+    console.log("checked item: " + prod);
+
+    if (list.length < 1) {
+      list.push(prod);
+      setSelectedItemsList(list);
+      console.log(list);
+    } else {
+      for (let i = 0; i < list.length; i++) {
+        if (prod._id === list[i]._id) {
+          inList = true;
+          if (prod.selected === list[i].selected) {
+            selected = true;
+          } else {
+            selected = false;
+          }
+        }
+        if (inList) {
+          list[i].selected = prod.selected;
+          setSelectedItemsList(list);
+        }
+        break;
+      }
+      if (!inList) {
+        list.push(prod);
+        setSelectedItemsList(list);
+        console.log(list);
+      }
+    }
+  };
+
+  const btn = () => {
+    console.log(selectedItemsList);
+  };
 
   return (
     <div className="grocery-list">
@@ -68,6 +76,7 @@ const GroceryList = () => {
           ))}
         </tbody>
       </table>
+      <button onClick={btn}>Test</button>
       <button onClick={btn}>Test</button>
     </div>
   );

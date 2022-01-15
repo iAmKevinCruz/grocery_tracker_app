@@ -26,8 +26,9 @@ const GlobalState = (props) => {
     setInventory(copy);
   };
 
-  const removeFromInventory = (product) => {
+  const removeFromInventory = (prods) => {
     console.log("Remove from inventory");
+    console.log(prods);
   };
 
   return (

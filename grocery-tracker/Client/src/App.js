@@ -7,12 +7,6 @@ import GlobalState from "./context/globalState";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GroceryList from "./components/groceryList";
 
-// function App() {
-//   return (
-//     <GroceryForm />
-//   );
-// }
-
 function App() {
   return (
     <GlobalState>

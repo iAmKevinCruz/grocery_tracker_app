@@ -1,25 +1,26 @@
 import "./groceryList.css";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import inventoryContext from "../context/inventoryContext";
 import GroceryListItem from "./groceryListItem";
+import ItemService from "../services/itemService";
 
 const GroceryList = () => {
+  // Variables
   let [selectedItemsList, setSelectedItemsList] = useState([]);
+  let [items, setItems] = useState([]);
   const inventory = useContext(inventoryContext).inventory;
-  let test = [
-    { _id: 1, name: "apples", amount: 2, unit: "oz", category: "fruit" },
-    {
-      _id: 2,
-      name: "celery",
-      amount: 3,
-      unit: "sticks",
-      category: "vegetable",
-    },
-  ];
+  const removeFromInventory =
+    useContext(inventoryContext).removeProductFromInventory;
+  const addToInventory = useContext(inventoryContext).addProductToInventory;
+
+  // Logic
+  const retrieveList = () => {
+    let service = new ItemService();
+    setItems(service.getList());
+  };
 
   const selectedItems = (prod) => {
     let list = [...selectedItemsList];
-    let inv = [...test];
     let inList = false;
     let selected = false;
     console.log("checked item: " + prod);
@@ -56,6 +57,24 @@ const GroceryList = () => {
     console.log(selectedItemsList);
   };
 
+  const removeItems = (prods) => {
+    //NOT SURE IF I'LL NEED THIS AFTER IMPLEMENT BACKEND
+    // let prods = selectedItemsList;
+    removeFromInventory(selectedItemsList);
+  };
+
+  const removeMultItems = () => {
+    let service = new ItemService();
+    service.removeMultiple(selectedItemsList);
+  };
+
+  // Effects
+  useEffect(() => {
+    console.log("Component Loaded");
+    retrieveList();
+  });
+
+  // Render
   return (
     <div className="grocery-list">
       <h1>Inventory</h1>
@@ -71,13 +90,13 @@ const GroceryList = () => {
           </tr>
         </thead>
         <tbody>
-          {test.map((prod) => (
+          {items.map((prod) => (
             <GroceryListItem key={prod._id} data={prod} send={selectedItems} />
           ))}
         </tbody>
       </table>
-      <button onClick={btn}>Test</button>
-      <button onClick={btn}>Test</button>
+      <button onClick={btn}>Show Selected</button>
+      <button onClick={removeMultItems}>Remove</button>
     </div>
   );
 };
